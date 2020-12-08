@@ -20,6 +20,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
+import { Route, MemoryRouter } from "react-router";
 import { Link as RouterLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import Collapse from "@material-ui/core/Collapse";
@@ -198,16 +199,23 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
         <Divider />
-        <List>
-          <ListItemLink to="/inbox" open={open} onClick={handleClick} />
-          <Collapse component="li" in={open} timeout="auto" unmountOnExit>
-            <List disablePadding>
-              <ListItemLink to="/inbox/important" className={classes.nested} />
+        <MemoryRouter initialEntries={["/inbox"]} initialIndex={0}>
+          <div className={classes.root}>
+            <List>
+              <ListItemLink to="/inbox" open={open} onClick={handleClick} />
+              <Collapse component="li" in={open} timeout="auto" unmountOnExit>
+                <List disablePadding>
+                  <ListItemLink
+                    to="/inbox/important"
+                    className={classes.nested}
+                  />
+                </List>
+              </Collapse>
+              <ListItemLink to="/trash" />
+              <ListItemLink to="/spam" />
             </List>
-          </Collapse>
-          <ListItemLink to="/trash" />
-          <ListItemLink to="/spam" />
-        </List>
+          </div>
+        </MemoryRouter>
       </Drawer>
       <main
         className={clsx(classes.content, {
