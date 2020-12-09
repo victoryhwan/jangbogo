@@ -94,11 +94,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const breadcrumbNameMap = {
-  "/inbox": "Inbox",
-  "/inbox/important": "Important",
-  "/trash": "Trash",
-  "/spam": "Spam",
-  "/drafts": "Drafts"
+  "/inbox_2": "Inbox_2",
+  "/inbox_2/important_2": "Important_2",
+  "/trash_2": "Trash_2",
+  "/spam_2": "Spam_2",
+  "/drafts_2": "Drafts_2"
 };
 
 function ListItemLink(props) {
@@ -109,7 +109,7 @@ function ListItemLink(props) {
     <li>
       <ListItem button component={RouterLink} to={to} {...other}>
         <ListItemText primary={primary} />
-        {open != null ? open ? <ExpandLess /> : <ExpandMore /> : null}
+        {/* {open != null ? open ? <ExpandLess /> : <ExpandMore /> : null} */}
       </ListItem>
     </li>
   );
@@ -123,11 +123,12 @@ ListItemLink.propTypes = {
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
-  //   const [open, setOpen] = React.useState(false);
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const [open_, setOpen_] = React.useState(true);
 
   const handleClick = () => {
-    setOpen(prevOpen => !prevOpen);
+    // console.log(prevOpen)
+    setOpen_(prevOpen => !prevOpen);
   };
 
   const handleDrawerOpen = () => {
@@ -199,20 +200,20 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
         <Divider />
-        <MemoryRouter initialEntries={["/inbox"]} initialIndex={0}>
+        <MemoryRouter initialEntries={["/inbox_2"]} initialIndex={0}>
           <div className={classes.root}>
             <List>
-              <ListItemLink to="/inbox" open={open} onClick={handleClick} />
-              <Collapse component="li" in={open} timeout="auto" unmountOnExit>
+              <ListItemLink to="/inbox_2" open={open_} onClick={handleClick} />
+              <Collapse component="li" in={open_} timeout="auto" unmountOnExit>
                 <List disablePadding>
                   <ListItemLink
-                    to="/inbox/important"
+                    to="/inbox_2/important_2"
                     className={classes.nested}
                   />
                 </List>
               </Collapse>
-              <ListItemLink to="/trash" />
-              <ListItemLink to="/spam" />
+              <ListItemLink to="/trash_2" />
+              <ListItemLink to="/spam_2" />
             </List>
           </div>
         </MemoryRouter>
